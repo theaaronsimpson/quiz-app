@@ -1,0 +1,64 @@
+<div class="attempts-page">
+  <div class="container">
+
+    <header class="page-header">
+      <h1>My Quiz Attempts</h1>
+      <p class="subtitle">View and manage all your past quiz results</p>
+    </header>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading">
+      Loading your attempts...
+    </div>
+
+    <!-- No attempts -->
+    <div *ngIf="!loading && attempts.length === 0" class="empty-state">
+      <div class="icon">Empty</div>
+      <h3>No attempts yet</h3>
+      <p>Go crush a quiz — your history starts now!</p>
+      <a routerLink="/" class="btn-primary">Browse Quizzes</a>
+    </div>
+
+    <!-- Attempts List -->
+    <div *ngIf="!loading && attempts.length > 0" class="attempts-grid">
+      <div *ngFor="let a of attempts; trackBy: trackById" class="attempt-card">
+
+        <div class="card-header">
+          <h3>{{ a.quizTitle }}</h3>
+          <span class="date">{{ formatDate(a.date) }}</span>
+        </div>
+
+        <div class="score-circle" [style.--percentage]="a.percentage + '%'">
+          <span class="score">{{ a.score }}</span>
+          <span class="total">/ {{ a.totalPoints }}</span>
+        </div>
+
+        <div class="details">
+          <div class="detail">
+            <span class="label">Score</span>
+            <strong>{{ a.percentage }}%</strong>
+          </div>
+          <div class="detail">
+            <span class="label">Time</span>
+            <strong>{{ a.timeTaken ? (a.timeTaken + 's') : '—' }}</strong>
+          </div>
+        </div>
+
+        <!-- THIS IS THE PART YOU WERE MISSING -->
+        <div class="attempt-actions">
+          <a [routerLink]="['/play', a.quizId]" class="btn-retake">Retake Quiz</a>
+          
+          <button 
+            (click)="deleteAttempt(a._id!)" 
+            class="btn-delete-small"
+            title="Permanently delete this attempt">
+            Delete
+          </button>
+        </div>
+        <!-- END OF MISSING PART -->
+
+      </div>
+    </div>
+
+  </div>
+</div>

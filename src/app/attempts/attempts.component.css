@@ -1,0 +1,206 @@
+.attempts-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e1b4b 0%, #0f0f23 100%);
+  color: white;
+  padding: 2rem 1rem;
+}
+
+.header-gradient {
+  text-align: center;
+  padding: 3rem 0 4rem;
+}
+
+.header-gradient h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  margin: 0;
+  background: linear-gradient(to right, #fff, #ddd6fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  margin-top: 1rem;
+}
+
+.attempts-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+}
+
+.empty-card {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  text-align: center;
+  padding: 5rem 2rem;
+  color: white;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.empty-icon {
+  font-size: 6rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-play {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 1rem 3rem;
+  background: linear-gradient(to right, #8b5cf6, #ec4899);
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btn-play:hover {
+  transform: scale(1.08);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.attempt-card {
+  background: white;
+  color: #1e293b;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  transition: all 0.4s ease;
+  position: relative;
+  padding: 2rem;
+}
+
+.attempt-card.recent::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 10px;
+  background: linear-gradient(to bottom, #10b981, #059669);
+}
+
+.card-content {
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.quiz-info h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.9rem;
+  color: #1e293b;
+}
+
+.quiz-info .date {
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+.score-ring {
+  --p: 0;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: conic-gradient(#10b981 calc(var(--p) * 1%), #e0e7ff 0);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-ring::after {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  background: white;
+  border-radius: 50%;
+}
+
+.score-inner {
+  text-align: center;
+  z-index: 1;
+}
+
+.big {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.small {
+  font-size: 1.2rem;
+  color: #64748b;
+}
+
+.medal-badge {
+  padding: 1.2rem 2.5rem;
+  border-radius: 999px;
+  font-weight: bold;
+  text-align: center;
+  min-width: 150px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.medal-badge.gold    { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #451a03; }
+.medal-badge.silver  { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #1e293b; }
+.medal-badge.bronze  { background: linear-gradient(135deg, #fed7aa, #fb923c); color: #7c2d12; }
+.medal-badge.none    { background: #f1f5f9; color: #64748b; }
+
+.admin-actions {
+  padding: 1rem 2.5rem;
+  background: #f8fafc;
+  text-align: right;
+  border-top: 1px solid #e2e8f0;
+}
+
+.btn-edit, .btn-delete {
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-edit { background: #3b82f6; color: white; }
+.btn-delete { background: #ef4444; color: white; }
+
+.admin-panel {
+  max-width: 600px;
+  margin: 4rem auto;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  padding: 2rem;
+  color: white;
+}
+
+.edit-form input {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem 0;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  font-size: 1.1rem;
+}
+
+.edit-form input::placeholder { 
+  color: rgba(255,255,255,0.7); 
+}
+
+.form-actions button {
+  padding: 0.8rem 2rem;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-save { background: #10b981; color: white; }
+.btn-cancel { background: #64748b; color: white; }

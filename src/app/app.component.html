@@ -1,0 +1,33 @@
+<div class="app-root">
+  <div class="main-container">
+
+    <header class="app-header">
+      <h1 class="app-title">Online Quiz</h1>
+
+      <nav class="nav-list">
+        <a routerLink="/" 
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: true }">
+          <button type="button" class="nav-btn">Take Quiz</button>
+        </a>
+
+        <a routerLink="/quiz/new" routerLinkActive="active">
+          <button type="button" class="nav-btn">Create Quiz</button>
+        </a>
+
+        <a routerLink="/attempts" routerLinkActive="active">
+          <button type="button" class="nav-btn">Attempts & Scores</button>
+        </a>
+
+        <a routerLink="/users" routerLinkActive="active">
+          <button type="button" class="nav-btn">Profile</button>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <router-outlet />
+    </main>
+
+  </div>
+</div>

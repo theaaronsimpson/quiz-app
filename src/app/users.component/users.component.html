@@ -1,0 +1,78 @@
+<div class="users-page">
+
+  <div *ngIf="!profile" class="auth-container">
+    <div class="card">
+      <h1>Quiz Master</h1>
+
+      <p class="message"
+         [class.success]="message.includes('Registered') || message.includes('Logged')"
+         [class.error]="message && !message.includes('Registered') && !message.includes('Logged')">
+        {{ message || ' ' }}
+      </p>
+
+      <div class="forms-grid">
+        <!-- REGISTER FORM -->
+        <div class="form-box">
+          <h2>Register</h2>
+          <input [(ngModel)]="newUser.username" name="regUsername" placeholder="Username" />
+          <input [(ngModel)]="newUser.email"    name="regEmail"    placeholder="Email" />
+          <input [(ngModel)]="newUser.password" name="regPassword" placeholder="Password" type="password" />
+          <button (click)="register()" class="btn-primary">Register</button>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div class="form-box">
+          <h2>Login</h2>
+          <input [(ngModel)]="loginUser.email"    name="loginEmail"    placeholder="Email" />
+          <input [(ngModel)]="loginUser.password" name="loginPassword" placeholder="Password" type="password" />
+          <button (click)="login()" class="btn-primary">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGGED IN: Profile -->
+  <div *ngIf="profile" class="profile-container">
+    <div class="hero">
+      <div class="avatar">{{ (profile.username?.[0]?.toUpperCase()) || 'U' }}</div>      <h1>{{ profile.username }}</h1>
+      <p class="email">{{ profile.email }}</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="value">{{ stats.totalAttempts }}</div>
+        <div class="label">Quizzes Taken</div>
+      </div>
+      <div class="stat">
+        <div class="value">{{ stats.averageScore }}%</div>
+        <div class="label">Average Score</div>
+      </div>
+      <div class="stat">
+        <div class="value">{{ stats.highestScore }}%</div>
+        <div class="label">Best Score</div>
+      </div>
+      <div class="stat">
+        <div class="value">{{ stats.perfectScores }}</div>
+        <div class="label">Perfect 100%</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a routerLink="/attempts" class="btn">View Scores</a>
+      <button (click)="startEdit()" class="btn">Edit Profile</button>
+      <button (click)="deleteAccount()" class="btn-delete">Delete Account</button>
+      <button (click)="logout()" class="btn logout">Logout</button>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" *ngIf="editing">
+      <div class="modal-content">
+        <h2>Edit Profile</h2>
+        <input [(ngModel)]="editing.username" name="editUsername" placeholder="Username" />
+        <input [(ngModel)]="editing.email"    name="editEmail"    placeholder="Email" />
+        <button (click)="saveEdit()" class="btn-primary">Save Changes</button>
+        <button (click)="cancelEdit()" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

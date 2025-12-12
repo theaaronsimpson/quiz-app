@@ -1,0 +1,88 @@
+<div class="player-container">
+  <div class="player-wrapper">
+
+    <!-- Header -->
+    <div class="player-header">
+      <h1>{{ quiz?.title }}</h1>
+      <div class="meta">
+        <span class="badge">{{ quiz?.questions?.length ?? 0 }} questions</span>
+        <span class="badge">{{ totalPoints }} points possible</span>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="progress"></div>
+      <span class="progress-text">
+
+        {{ currentQuestionIndex + 1 }} / {{ quiz?.questions?.length ?? 0 }}
+      </span>
+    </div>
+
+    <!-- Current Question -->
+    <ng-container *ngIf="currentQuestion as q">
+      <div class="question-card">
+
+        <div class="question-top">
+          <h2>Question {{ currentQuestionIndex + 1 }}</h2>
+          <span class="points-badge">{{ q.points ?? 1 }} pts</span>
+        </div>
+
+        <p class="question-text">{{ q.prompt }}</p>
+
+        <div class="choices-grid">
+          <button
+            *ngFor="let choice of q.choices; let i = index"
+            type="button"
+            class="choice-btn"
+            [class.selected]="selectedChoice === i"
+            [class.correct]="showResults && i === q.correctIndex"
+            [class.incorrect]="showResults && selectedChoice === i && i !== q.correctIndex"
+            (click)="selectChoice(i)"
+            [disabled]="showResults">
+
+            <span class="choice-letter">{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[i] }}</span>
+            <span class="choice-text">{{ choice.text }}</span>
+
+            <span *ngIf="showResults && i === q.correctIndex" class="correct-icon">Correct</span>
+            <span *ngIf="showResults && selectedChoice === i && i !== q.correctIndex" class="incorrect-icon">Incorrect</span>
+          </button>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+          <button
+            type="button"
+            (click)="previousQuestion()"
+            [disabled]="currentQuestionIndex === 0"
+            class="btn-nav">
+            Previous
+          </button>
+
+          <button
+            *ngIf="!showResults && selectedChoice !== null"
+            (click)="nextQuestion()"
+            class="btn-primary">
+            {{ isLastQuestion ? 'Finish Quiz' : 'Next Question' }}
+          </button>
+        </div>
+
+      </div>
+    </ng-container>
+
+    <!-- Results Screen -->
+    <div *ngIf="quizFinished && showResults" class="results-card">
+      <h2>Quiz Complete!</h2>
+
+      <div class="score-circle" [style.--percentage]="percentage + '%'">
+        <span class="score">{{ score }}</span>
+        <span class="total">/ {{ totalPoints }}</span>
+      </div>
+
+      <p class="percentage">{{ percentage }}% Correct</p>
+
+      <button (click)="goHome()" class="btn-home">Back to Home</button>
+    </div>
+
+  </div>
+</div>

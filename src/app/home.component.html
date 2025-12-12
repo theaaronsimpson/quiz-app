@@ -1,0 +1,73 @@
+<div class="home-page">
+  <div class="home-container">
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Quizzes</div>
+        <div class="stat-value">{{ totalQuizzes() }}</div>
+        <div class="stat-sub">Published: {{ publishedQuizzes().length }} • Drafts: {{ draftQuizzes().length }}</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Total Attempts</div>
+        <div class="stat-value">{{ totalAttempts() }}</div>
+        <div class="stat-sub">Your personal record</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Average Score</div>
+        <div class="stat-value">
+          {{ averageScore() === null ? '—' : (averageScore() | number:'1.0-2') + '%' }}
+        </div>
+        <div class="stat-sub">Across all attempts</div>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="search-section">
+      <label class="search-label">Search quizzes:
+        <input class="search-input" placeholder="Title or description…" [formControl]="searchForm.controls.q" />
+      </label>
+      <small>Showing {{ filteredQuizzes().length }} of {{ totalQuizzes() }}</small>
+    </div>
+
+    <!-- Quizzes List -->
+    <section class="quizzes-section">
+      <h2 class="section-title">Available Quizzes</h2>
+
+      <div class="quiz-grid" *ngIf="filteredQuizzes().length; else noQuizzes">
+        <article *ngFor="let q of filteredQuizzes(); trackBy: trackByQuiz" class="quiz-card">
+          <div class="quiz-header">
+            <h3 class="quiz-title">{{ q.title || '(untitled quiz)' }}</h3>
+            <span class="quiz-status">{{ q.published ? 'Published' : 'Draft' }}</span>
+          </div>
+
+          <div class="quiz-body">
+            <p class="quiz-desc">{{ q.description || 'No description' }}</p>
+
+            <div class="quiz-stats">
+              Questions: <strong>{{ q.questions.length || 0 }}</strong>              <span>Best: <strong>{{ fmtPct(bestPctFor(q.id)) }}</strong></span>
+              <span>Attempts: <strong>{{ attemptsFor(q.id).length }}</strong></span>
+            </div>
+
+            <div class="quiz-actions">
+              <a [routerLink]="['/play', q.id]">
+                <button type="button" class="btn btn-play" [disabled]="!q.published">Play</button>
+              </a>
+              <a [routerLink]="['/quiz', q.id, 'edit']">
+                <button type="button" class="btn btn-edit">Edit</button>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <ng-template #noQuizzes>
+        <div class="empty-state">
+          <p>No quizzes yet. <a routerLink="/quiz/new">Create your first quiz</a>.</p>
+        </div>
+      </ng-template>
+    </section>
+  </div>
+</div>
